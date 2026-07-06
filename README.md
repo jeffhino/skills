@@ -6,6 +6,17 @@ Skills are self-contained capabilities Claude can invoke by name — each one bu
 instructions, and optionally scripts and reference material, into a folder Claude loads
 on demand. Drop one into `~/.claude/skills/` and Claude picks it up.
 
+## Skills
+
+| Skill | What it does |
+|---|---|
+| [handoff-brief](handoff-brief/) | Park and resume session context across interruptions — distills a session into a dated brief, verifies real git state on resume. |
+| [workflow-author](workflow-author/) | Author Claude Code workflow scripts (`.claude/workflows/*.js`) against the real harness API, with a bundled static linter. |
+| [claude-retro](claude-retro/) | Mine your local Claude Code transcripts to find which skills never fire and what you keep asking for manually. |
+| [strudel-jam](strudel-jam/) | Run a [Strudel](https://strudel.cc) live-coding practice session — finds a technique gap in your saved patterns and sets an exercise. |
+| [language-drill](language-drill/) | Spaced-repetition (Leitner) vocab drill from a plain-markdown log — quizzes recall-then-usage and tracks progress. |
+| [curate](curate/) | Triage and prioritize [Things 3](https://culturedcode.com/things/) tasks via the `clings` CLI (macOS). |
+
 ## Layout
 
 Each skill lives in its own directory:
