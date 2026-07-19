@@ -11,12 +11,18 @@ language models.
 Point it at a draft (email, doc, README, essay) and it runs two passes:
 
 1. **Mechanical** — a bundled deterministic script (`scripts/prose_check.py`,
-   stdlib-only Python) flags ~35 near-certain patterns with line numbers:
+   stdlib-only Python) flags ~60 near-certain patterns with line numbers:
    Rule 13 padding ("owing to the fact that" → since), glossary survivors
    ("of a hostile nature", "such as … etc.", "as good or better than",
    *literally* propping up hyperbole), empty frames ("he is a man who…"),
-   its/it's, affect/effect, and more. Markdown code blocks, inline code, and
-   URLs are masked before matching.
+   its/it's, affect/effect — plus plain-language packs for the classic bad
+   registers: wordy formulas ("in order to", "prior to"), nominalization
+   chains ("the implementation of the utilization of"), academic hedge
+   stacks ("it may be suggested that"), Rule-11 litotes ("not inconsistent"),
+   corporate jargon ("circle back", "going forward"), redundant pairs ("each
+   and every"), legalese ("aforementioned"), stock application phrases
+   ("proven track record"), and infomercial urgency ("act now"). Markdown
+   code blocks, inline code, and URLs are masked before matching.
 2. **Judgment** — the model reviews against 16 context-dependent rules
    (danglers, comma splices, parallelism, concrete language, end-emphasis,
    active voice *as Strunk actually stated it* — topic-focus test, not a
@@ -42,8 +48,10 @@ fading word blacklist:
   formatting, copula avoidance ("serves as" for "is").
 - **Density signals** (doc-level, saturation-triggered): buzzword cluster
   rate, em-dash rate, signpost chains (Moreover/Furthermore/Additionally),
-  "not only" repetition, mechanical boldface, and sentence-rhythm uniformity
-  (coefficient of variation of sentence lengths).
+  "not only" repetition, mechanical boldface and bold-led paragraphs,
+  rule-of-three triad saturation, -ly adverb saturation (purple prose),
+  nominalization saturation (bureaucratese), ALL-CAPS shouting, and
+  sentence-rhythm uniformity (coefficient of variation of sentence lengths).
 - **Judgment tells** (model layer): genericness — the #1 reason readers gloss
   over — stance-free both-sidesing, triad saturation, conclusion recaps,
   synonym cycling, unearned profundity.

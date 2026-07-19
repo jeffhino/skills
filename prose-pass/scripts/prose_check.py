@@ -74,27 +74,50 @@ CHECKS = [
     ("its-error", "always", "Rule 1", _C(r"\bit's (?:own|way into|way out of)\b"), "'its' — possessive pronouns take no apostrophe"),
     ("affect-noun", "style", "'Effect'", _C(r"\b(?:an|the|its|their|his|her|any) affect\b"), "probably 'effect' (result); 'affect' as a noun is a psychology term"),
 
+    # --- Plain-language packs (Rule 13's spirit; classic wordy formulas) ---
+    ("wordy-formula", "style", "plain language", _C(r"\bin order to\b"), "'to'"),
+    ("wordy-formula", "style", "plain language", _C(r"\bat this point in time\b"), "'now'"),
+    ("wordy-formula", "style", "plain language", _C(r"\bon a (?:daily|weekly|monthly|regular) basis\b"), "'daily' / 'regularly'"),
+    ("wordy-formula", "style", "plain language", _C(r"\bprior to\b"), "'before'"),
+    ("wordy-formula", "style", "plain language", _C(r"\bsubsequent to\b"), "'after'"),
+    ("wordy-formula", "style", "plain language", _C(r"\bin the event that\b"), "'if'"),
+    ("wordy-formula", "style", "plain language", _C(r"\buntil such time as\b"), "'until'"),
+    ("wordy-formula", "style", "plain language", _C(r"\bin the near future\b"), "'soon'"),
+    ("wordy-formula", "style", "plain language", _C(r"\ba large number of\b"), "'many'"),
+    ("wordy-formula", "style", "plain language", _C(r"\bthe vast majority of\b"), "'most'"),
+    ("bureau-frame", "style", "plain language", _C(r"\bplease be advised that\b|\bit has come to (?:my|our|the) attention (?:of [\w ]{2,30} )?that\b|\bit is anticipated that\b|\bat your earliest convenience\b|\bfor \w+ purposes\b"), "cut the frame — state the thing directly"),
+    ("nominal-chain", "style", "nominalization", _C(r"\bthe \w{3,}(?:tion|sion|ment|ance|ence|ization)s? of (?:the |a |an )?[\w ]{0,20}?\w(?:tion|sion|ment|ance|ence|ization)s?\b"), "unwind the noun chain into an actor and a verb: 'the implementation of the utilization of X' → 'we will use X'"),
+    ("hedge-stack", "style", "Rule 11 / hedging", _C(r"\bit may be suggested that\b|\bit must be acknowledged that\b|\bit could be argued that\b|\bwould (?:appear|seem) to (?:be|suggest|indicate|warrant)\b|\bmay potentially\b|\bit is (?:hoped|tentatively concluded) that\b|\bcannot be (?:entirely|completely|wholly) (?:excluded|ruled out)\b|\bit is not inconceivable\b|\ba degree of \w+ (?:would|may|might)\b"), "commit: state the claim and one real caveat with a reason"),
+    ("litotes", "style", "Rule 11", _C(r"\bnot (?:un|in|im|il|ir|dis)\w+(?:able|ible|ent|ant|ive|ous|al|ful|less)\b"), "positive form: 'not inconsistent' → 'consistent'; 'not uncommon' → 'common'"),
+    ("legalese", "style", "plain language", _C(r"\baforementioned\b|\bheretofore\b|\bherein(?:after)?\b|\bhenceforth\b|\bthe said \w+\b|\bnotwithstanding\b"), "plain reference: 'the findings above', 'despite'"),
+    ("redundant-pair", "style", "redundancy", _C(r"\beach and every\b|\bend result\b|\bfinal outcome\b|\bpast history\b|\bfuture plans\b|\badvance planning\b|\bclose proximity\b|\bcompletely eliminate\b|\babsolutely essential\b|\bbasic fundamentals\b|\bfree gift\b|\badded bonus\b|\bunexpected surprise\b|\brevert back\b|\brepeat again\b|\bjoin together\b"), "one word carries it: 'every', 'result', 'history', 'plans', 'near', 'eliminate'"),
+    ("corp-jargon", "style", "corporate jargon", _C(r"\bgoing forward\b|\bcircle back\b|\btouch base\b|\bkey learnings\b|\bactionable (?:takeaways|insights)\b|\bmove the needle\b|\blow-hanging fruit\b|\bon a go-forward basis\b|\bsocialize (?:this|the|these|their|your)\b|\bcascad(?:e|ing) (?:this|the|of this)\b|\bbandwidth constraints?\b"), "say the plain action: 'from now on', 'follow up', 'lessons', 'next steps'"),
+    ("stock-application", "style", "stock phrase", _C(r"\bI am writing to (?:express|apply|inquire|inform)\b|\bproven track record\b|\bexcited about the opportunity\b|\bwell-versed in\b|\bfresh perspective\b|\bup-to-date with the latest\b"), "template phrasing — replace with one specific, verifiable fact about you or them"),
+    ("urgency-hype", "style", "hype cliché", _C(r"\bact now\b|\bdon'?t miss out\b|\blimited[- ]time offer\b|\bonce[- ]in[- ]a[- ]lifetime\b|\bwhile supplies last\b|\bsupplies are (?:\w+ )?limited\b|\boperators are standing by\b|\bdon'?t take (?:my|our) word for it\b|\bno questions asked\b|\bwill (?:NOT|not) be repeated\b"), "urgency boilerplate — one concrete reason to act beats five commands to"),
+
     # --- AI tells (tier 'ai', active in every register; see references/ai-tells.md) ---
     # Machine artifacts: near-zero human base rate, effectively diagnostic.
     ("ai-artifact", "ai", "AI: artifact", _C(r"\bas an ai(?: language)? model\b|\bas of my last (?:knowledge )?update\b|\bi hope this (?:helps|email finds you well)\b|\bwould you like me to\b|\bcertainly! here\b|\bgreat question\b|contentReference|oaicite|turn\d+search\d+|grok_card|\[cite: ?\d+\]|utm_source=chatgpt\.com"), "chatbot chrome / machine artifact — delete it; it destroys reader trust on sight"),
     # Stock scene-setting openers: readers report bailing at these.
-    ("ai-opener", "ai", "AI: stock opener", _C(r"\bin today's (?:fast-paced|digital|modern|ever-changing|rapidly evolving)[\w-]* (?:world|age|era|landscape|environment)\b|\bin th(?:is|e) (?:day and age|ever-evolving)\b|\bin the (?:ever-evolving|rapidly (?:evolving|changing)) (?:landscape|world|realm|field) of\b|\bas technology continues to (?:evolve|advance)\b|\bin a world where\b|\bgone are the days\b|\blook no further\b"), "delete the opener and start with the most specific true thing you have"),
+    ("ai-opener", "ai", "AI: stock opener", _C(r"\bin today's (?:[\w-]+ ){0,3}?(?:world|age|era|landscape|environment|marketplace|market|economy|climate)\b|\bin th(?:is|e) (?:day and age|ever-evolving)\b|\bin the (?:ever-evolving|rapidly (?:evolving|changing)) (?:landscape|world|realm|field) of\b|\bas technology continues to (?:evolve|advance)\b|\bin a world where\b|\bgone are the days\b|\blook no further\b"), "delete the opener and start with the most specific true thing you have"),
     # Significance inflation / puffery — active across all model eras.
     ("ai-puffery", "ai", "AI: significance inflation", _C(r"\b(?:stands|serves) as a testament to\b|\ba (?:true )?testament to\b|\bplays? a (?:crucial|vital|key|significant|pivotal|central) role in\b|\bunderscor(?:es|ing) the (?:importance|need|significance)\b|\bleft an indelible mark\b|\benduring legacy\b|\bcontinues to captivate\b|\b(?:solidif|cement)(?:ied|ying|ing) (?:his|her|its|their) (?:place|legacy|position)\b|\bmarks a pivotal moment\b|\bsetting the stage for\b|\bpaving the way for\b|\ba beacon of\b|\brich (?:tapestry|cultural heritage)\b|\bnestled in the heart of\b|\bdeeply rooted in\b|\breflects broader\b|\bcannot be overstated\b"), "replace the significance claim with the concrete fact that would justify it, or cut"),
     # Stock metaphor kit.
     ("ai-metaphor", "ai", "AI: stock metaphor", _C(r"\bnavigat(?:e|ing) the (?:complexities|landscape|waters|challenges) of\b|\bunlock(?:ing)? the (?:potential|power|secrets?) of\b|\bunleash(?:ing)? the power\b|\bharness(?:ing)? the power\b|\bembark(?:ing|ed)? on a journey\b|\b(?:let's )?(?:take a )?(?:deep |)dive in(?:to)?\b|\bin the realm of\b|\belevate your\b|\bgame[- ]changer\b|\ba (?:diverse|wide|vast) array of\b|\ba myriad of\b|\ba plethora of\b|\btreasure trove\b|\ba tapestry of\b"), "say the plain thing: name the actual components, actions, or stakes"),
     # Throat-clearing.
-    ("ai-throat-clear", "ai", "AI: throat-clearing", _C(r"\bit(?:'s| is) (?:important|worth|crucial) (?:to note|noting|to mention|mentioning)(?: that)?\b|\bit should be noted that\b|\bit(?:'s| is) worth mentioning\b"), "cut the preamble — the sentence works without it"),
+    ("ai-throat-clear", "ai", "AI: throat-clearing", _C(r"\bit(?:'s| is) (?:important|worth|crucial) (?:to note|noting|to mention|mentioning)(?: that)?\b|\bit (?:should|must) be noted,?(?: however,?)? that\b|\bit(?:'s| is) worth mentioning\b"), "cut the preamble — the sentence works without it"),
     # Negative-parallelism antithesis: the signature current-generation construction.
-    ("ai-antithesis", "ai", "AI: not-X-but-Y antithesis", _C(r"\b(?:it|this|that)(?:'s| is)? ?n[o']t (?:just|only|merely|simply|about) [^.!?\n]{2,60}?[—;,.-]+ ?(?:it(?:'s| is)|this is|but) (?:about )?"), "state the positive claim once, directly; keep negation only when the misconception is real and named"),
+    ("ai-antithesis", "ai", "AI: not-X-but-Y antithesis", _C(r"(?:\b\w+ (?:is|are)|\b(?:it|this|that)(?:'s| is)?)\s?n[o']t (?:just|only|merely|simply|about) [^.!?\n]{2,60}?[—;,.!?-]+\s?(?:it(?:'s| is)|(?:this|that)(?:'s| is)|they'?re|but) (?:about )?"), "state the positive claim once, directly; keep negation only when the misconception is real and named"),
+    ("ai-ones-who", "ai", "AI: not-the-ones-who contrast", _C(r"\b(?:is|are)n'?t the ones? (?:who|with) [^.!?\n]{2,60}[.!?]\s?They'?re the ones? who\b"), "one direct claim about what the good ones do — drop the mirrored negation"),
     ("ai-no-no-just", "ai", "AI: staccato triplet", _C(r"\bno \w[^.!?\n]{0,40}[.!?] no \w[^.!?\n]{0,40}[.!?] (?:just|only)\b"), "emphasis dressed as content — replace with the one specific claim"),
     # Reveal bridges and staged rhetorical questions.
-    ("ai-reveal-bridge", "ai", "AI: reveal bridge", _C(r"\bthe (?:result|best part|kicker|catch|bottom line)\?|\b(?:but )?here'?s the (?:thing|kicker|catch)[:.]"), "answer in the same breath, as a declarative sentence"),
+    ("ai-reveal-bridge", "ai", "AI: reveal bridge", _C(r"\bthe (?:result|best part|kicker|catch|bottom line)\?|\b(?:but |and |so )?here'?s the (?:thing|kicker|catch|truth|reality|secret|best part|hard part|good news|bad news)[:.]|\bhere'?s my challenge to you\b"), "answer in the same breath, as a declarative sentence"),
+    ("ai-engagement-bait", "ai", "AI: engagement bait", _C(r"(?m)^(?:Agree|Disagree|Thoughts)\?|\bI'?d love to hear your (?:thoughts|perspective|take)\b|\b(?:drop|share) (?:your thoughts |a comment )?(?:below|in the comments)\b|^(?:#\w+[\x20\t]*){3,}$"), "cut the closer — a piece that lands doesn't have to ask"),
     # Copula avoidance.
     ("ai-copula-avoid", "ai", "AI: copula avoidance", _C(r"\b(?:serves?|stands?|functions?) as an? \b"), "usually just 'is' — reserve 'serves as' for when function differs from identity"),
     ("ai-boasts", "ai", "AI: copula avoidance", _C(r"\bboast(?:s|ing|ed)? (?:a|an|the|over|more)\b"), "'has' — plain copula"),
     # Vague authority.
-    ("ai-weasel", "ai", "AI: weasel attribution", _C(r"\bexperts (?:agree|argue|say|believe|note|suggest)\b|\bstudies (?:show|suggest|have shown|indicate)\b|\bresearch (?:shows|suggests|indicates)\b|\bindustry reports\b|\bobservers have (?:noted|cited)\b|\bmany (?:believe|argue|experts)\b|\bwidely (?:regarded|considered|seen) as\b|\bsome critics (?:argue|say|contend)\b"), "name the source and date, or delete the claim"),
+    ("ai-weasel", "ai", "AI: weasel attribution", _C(r"\bexperts (?:agree|argue|say|believe|note|suggest)\b|\bstudies (?:show|suggest|have shown|indicate)\b|\bresearch (?:shows|suggests|indicates)\b|\bindustry reports\b|\bobservers have (?:noted|cited)\b|\bmany (?:believe|argue|experts)\b|\bwidely (?:regarded|considered|seen) as\b|\bsome (?:critics|researchers|scholars) (?:argue|say|contend|have argued)\b|\bit has been argued(?: by some)?\b|\bit is widely believed\b"), "name the source and date, or delete the claim"),
     # Trailing present-participle significance clauses (2-5x human rate; strongest quantified tell).
     ("ai-ing-trailer", "ai", "AI: -ing significance trailer", _C(r", (?:highlighting|underscoring|emphasizing|reflecting|demonstrating|signaling|showcasing|solidifying|cementing|marking|underlining|illustrating) "), "end the sentence at the fact; if the implication matters, give it its own sentence with an agent and evidence"),
     # Chat-UI formatting bleed.
@@ -102,6 +125,7 @@ CHECKS = [
     ("ai-emoji-format", "ai", "AI: emoji formatting", _C(r"(?m)^[\x20\t]*(?:#{1,6}[\x20\t]*)?[✅❌🚀💡📊🔥⚡🎯✨📈🌟💪🧵👇]"), "strip decorative emoji from headers and bullets"),
     # Legacy-era vocabulary — faded from frontier defaults but still emitted by older/cheaper models.
     ("ai-vocab", "ai", "AI: era vocabulary", _C(r"\bdelv(?:e|es|ing)\b|\btapestry\b|\bgarner(?:ed|ing)?\b|\bmultifaceted\b|\bintricacies\b|\bintricate interplay\b|\bever-evolving\b|\bseamlessly\b|\bshowcas(?:e|es|ing)\b"), "plain register: examine, mix, earn, complex, smoothly, show — one hit is weak signal; two or more warrants a pass"),
+    ("ai-puffery-2", "ai", "AI: significance inflation", _C(r"\bunderscor(?:es|ing) (?:its|the|their) \w+|\b(?:foster(?:s|ing)?|creat(?:es|ing)|build(?:s|ing)) a sense of\b|\ba sense of (?:connection|community|belonging|purpose|pride|wonder|camaraderie)\b|\bresonates? deeply\b|\brich \w+ (?:heritage|culture|history|tradition)\b|\bnatural beauty\b|\bcarefully crafted\b|\bthoughtfully (?:designed|curated|imbued|crafted)\b|\bclose-knit\b|\b(?:keeps?|kept) (?:the )?(?:viewers?|readers?|audiences?) on the edge of their seats?\b|\badds? depth to\b|\bmasterfully\b|\bcaptivat(?:e|es|ing|ed)\b|\bthe complexities of\b|\ba lens through which\b|\bat the end of the day\b"), "replace the significance claim with the concrete fact that would justify it, or cut"),
     ("ai-whether-youre", "ai", "AI: audience hedge", _C(r"\bwhether you'?re an? [^.!?\n]{2,40} or an? \b"), "pick your actual reader and write to them"),
     ("ai-first-foremost", "ai", "AI: signposting", _C(r"\bfirst and foremost\b"), "'first' — or just make the point"),
 ]
@@ -174,6 +198,47 @@ def density_flags(text, masked, words):
     if bolds >= 6:
         add("ai-bold-density", bolds, f"{bolds} bold spans",
             "mechanical boldface — if everything is bold, nothing is; bold at most one thing")
+
+    boldleads = len(re.findall(r"(?m)^\*\*[A-Z][^*\n]{1,40}\*\*", masked))
+    if boldleads >= 3:
+        add("ai-boldlead-density", boldleads,
+            f"{boldleads} bold-led paragraphs (**Term.** explanation …)",
+            "the one-word-bolded-paragraph scaffold — write the points as prose")
+
+    triads = len(re.findall(r"\b\w+, \w+, (?:and |or )?\w+\b", masked))
+    if triads >= 4 and triads * 1000 / n > 12:
+        add("ai-triad-density", triads,
+            f"{triads} triads ({round(triads * 1000 / n, 1)}/1000w)",
+            "rule-of-three saturation — keep the item that carries information, or use two, or four; one tricolon per piece is rhetoric")
+
+    adverbs = [w for w in words
+               if w.lower().endswith("ly") and len(w) > 4
+               and w.lower() not in {"only", "early", "likely", "family",
+                                     "supply", "apply", "reply", "italy",
+                                     "assembly", "monopoly", "anomaly"}]
+    if len(adverbs) >= 8 and len(adverbs) * 1000 / n > 28:
+        add("adverb-density", len(adverbs),
+            f"{len(adverbs)} -ly adverbs ({round(len(adverbs) * 1000 / n, 1)}/1000w)",
+            "adverb saturation — cut most and let stronger verbs carry the action (purple-prose signature)")
+
+    nominals = [w for w in words
+                if re.search(r"(?:tion|sion|ization|ement|ance|ence)s?$", w.lower())
+                and len(w) > 7]
+    if len(nominals) >= 12 and len(nominals) * 1000 / n > 45:
+        add("nominal-density", len(nominals),
+            f"{len(nominals)} nominalizations ({round(len(nominals) * 1000 / n, 1)}/1000w)",
+            "smothered verbs — unwind '-tion of' chains into actors and actions (bureaucratese signature)")
+
+    caps = [w for w in words if len(w) >= 4 and w.isupper() and w.isalpha()]
+    if len(caps) >= 8 and len(caps) * 1000 / n > 20:
+        add("caps-density", len(caps),
+            f"{len(caps)} ALL-CAPS words ({round(len(caps) * 1000 / n, 1)}/1000w)",
+            "shouting — capital letters are not emphasis; pick the one claim that matters and support it")
+
+    wicts = len(re.findall(r"\bwhen it comes to\b", masked, re.IGNORECASE))
+    if wicts >= 2:
+        add("ai-wict-density", wicts, f"'when it comes to' ×{wicts}",
+            "usually deletable: 'when it comes to pricing, we…' → 'on pricing, we…' or just start with the subject")
 
     return flags
 
