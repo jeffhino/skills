@@ -16,6 +16,7 @@ on demand. Drop one into `~/.claude/skills/` and Claude picks it up.
 | [strudel-jam](strudel-jam/) | Run a [Strudel](https://strudel.cc) live-coding practice session — finds a technique gap in your saved patterns and sets an exercise. |
 | [language-drill](language-drill/) | Spaced-repetition (Leitner) vocab drill from a plain-markdown log — quizzes recall-then-usage and tracks progress. |
 | [curate](curate/) | Triage and prioritize [Things 3](https://culturedcode.com/things/) tasks via the `clings` CLI (macOS). |
+| [prose-pass](prose-pass/) | Copy-edit a draft against Strunk's *Elements of Style* (1920, public domain) with modern verdicts baked in, plus an AI destyler that strips current-generation model tells — deterministic checker + density signals + judgment pass, three register modes. |
 
 ## Layout
 
