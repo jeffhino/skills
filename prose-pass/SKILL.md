@@ -73,6 +73,11 @@ Hard constraints:
 - Honor the A2 do-not-accuse guardrails: em dashes, polished prose, formal or
   ESL register, and any single instance of a pattern are not AI tells.
   Density and co-occurrence are the signal; say so when a hit is weak.
+- Filter use from mention: the script cannot tell a phrase being USED from a
+  phrase being QUOTED as an example (style guides, reviews, docs about
+  writing light up the checker). Drop flags whose match sits inside
+  quotation marks or is plainly cited as an example, and report how many
+  you filtered. The same goes for density stats inflated by quoted material.
 - Judgment findings need a defensible reader-facing reason (misleads, dilutes,
   buries the point, reads as slop), not "Strunk says so."
 

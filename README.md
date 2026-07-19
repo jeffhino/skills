@@ -2,7 +2,7 @@
 
 A collection of [Claude Code](https://claude.com/claude-code) skills by Jeff Hinojosa.
 
-Skills are self-contained capabilities Claude can invoke by name — each one bundles
+Skills are self-contained capabilities Claude can invoke by name. Each one bundles
 instructions, and optionally scripts and reference material, into a folder Claude loads
 on demand. Drop one into `~/.claude/skills/` and Claude picks it up.
 
